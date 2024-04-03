@@ -5,7 +5,7 @@
     ref="navigation"
   >
     <div
-      class="backdrop-blur-md bg-black/30 rounded-full flex items-center p-1 gap-1 text-xl font-semibold uppercase"
+      class="backdrop-blur-md bg-karels-800/30 rounded-full flex items-center p-1 gap-1 text-xl font-semibold uppercase"
     >
       <NavigationItem v-for="route in routes" :key="route.to" :to="route.to">
         <!-- <BeakerIcon class="size-6" /> -->

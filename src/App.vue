@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-[200vh] bg-slate-900">
+  <div class="min-h-[200vh] bg-karels-950">
     <RouterView />
     <TheNavigation />
   </div>
