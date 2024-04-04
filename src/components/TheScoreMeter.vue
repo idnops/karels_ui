@@ -1,12 +1,12 @@
 <template>
   <div class="flex items-center justify-center pt-6 relative">
-    <svg width="400" height="200" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <linearGradient x1="0%" y1="100%" id="a">
+        <linearGradient x1="0%" y1="100%" id="primaryStrokeGradient">
           <stop offset="0%" stop-color="#45c8cb" />
           <stop offset="80%" stop-color="#171717" />
         </linearGradient>
-        <linearGradient x1="0%" y1="100%" id="b">
+        <linearGradient x1="0%" y1="100%" id="secondaryStrokeGradient">
           <stop offset="0%" stop-color="#234e56" />
           <stop offset="60%" stop-opacity="0" stop-color="#12333a" />
         </linearGradient>
@@ -28,7 +28,7 @@
         cx="50%"
         cy="0"
         :r="radius"
-        stroke="url(#a)"
+        stroke="url(#primaryStrokeGradient)"
         :stroke-width="strokeWidth"
         fill="none"
         :stroke-dasharray="scoreStroke"
@@ -40,7 +40,7 @@
         cx="50%"
         cy="0"
         :r="radius - 48"
-        stroke="url(#b)"
+        stroke="url(#secondaryStrokeGradient)"
         :stroke-width="55"
         fill="none"
         :stroke-dasharray="scoreStroke2"
@@ -83,7 +83,7 @@ onMounted(() => {
   }, 500);
 });
 
-const radius = ref(170);
+const radius = ref(180);
 const target = ref(100);
 const value = ref(0);
 
@@ -124,7 +124,9 @@ const indicatorStroke = computed(() => {
 });
 
 const arrowStyle = computed(() => {
-  return `transform: rotate(${-90 + (180 * value.value) / target.value}deg)`;
+  const degree = -90 + (180 * value.value) / target.value;
+  const limit = degree > 90 ? 90 : degree < -90 ? -90 : degree;
+  return `transform: rotate(${limit}deg)`;
 });
 </script>
 
