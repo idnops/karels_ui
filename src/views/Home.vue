@@ -1,7 +1,7 @@
 <template>
   <div>
     <TheScoreMeter />
-    <h1 class="text-7xl font-bold text-white">831</h1>
+    <!-- <h1 class="text-7xl font-bold text-white">831</h1> -->
   </div>
 </template>
 

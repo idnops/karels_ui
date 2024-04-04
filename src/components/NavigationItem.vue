@@ -1,7 +1,7 @@
 <template>
   <RouterLink :to="props.to">
     <div
-      class="rounded-full text-white size-16 flex items-center justify-center"
+      class="rounded-full text-white size-16 flex items-center justify-center transition-colors duration-500"
     >
       <slot />
     </div>

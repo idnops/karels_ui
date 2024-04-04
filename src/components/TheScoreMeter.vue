@@ -1,10 +1,10 @@
 <template>
-  <div class="flex items-center justify-center pt-6">
+  <div class="flex items-center justify-center pt-6 relative">
     <svg width="400" height="200" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient x1="0%" y1="100%" id="a">
           <stop offset="0%" stop-color="#45c8cb" />
-          <stop offset="80%" stop-color="#12333a" />
+          <stop offset="80%" stop-color="#171717" />
         </linearGradient>
         <linearGradient x1="0%" y1="100%" id="b">
           <stop offset="0%" stop-color="#234e56" />
@@ -22,7 +22,7 @@
         :stroke-dasharray="targetStroke"
         :stroke-dashoffset="targetOffset"
         style="transform: rotate(180deg); transform-origin: center"
-        class="transition-all duration-500 stroke-karels-300"
+        class="transition-all duration-500 stroke-karels-200"
       />
       <circle
         cx="50%"
@@ -39,14 +39,37 @@
       <circle
         cx="50%"
         cy="0"
-        :r="radius - 46"
+        :r="radius - 48"
         stroke="url(#b)"
-        :stroke-width="50"
+        :stroke-width="55"
         fill="none"
         :stroke-dasharray="scoreStroke2"
         style="transform: rotate(180deg); transform-origin: center"
         class="transition-all duration-700"
       />
+
+      <circle
+        cx="50%"
+        cy="0"
+        :r="radius"
+        :stroke-width="60"
+        fill="none"
+        :stroke-dasharray="indicatorStroke"
+        :stroke-dashoffset="targetOffset"
+        style="transform: rotate(180deg); transform-origin: center"
+        class="transition-all duration-500 stroke-karels-200"
+      />
+    </svg>
+
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      x="0px"
+      y="0px"
+      viewBox="0 0 36.7 50"
+      class="absolute bottom-[-25px] size-12 -rotate-90 transition-all duration-500 fill-karels-200"
+      :style="arrowStyle"
+    >
+      <polygon class="st0" points="18.3,0 36.7,50 18.3,37.3 0,50 " />
     </svg>
   </div>
 </template>
@@ -62,20 +85,20 @@ onMounted(() => {
 
 const radius = ref(170);
 const target = ref(100);
-const value = ref(10);
+const value = ref(0);
 
 const strokeWidth = ref(40);
 
 const primaryC = computed(() => Math.PI * 2 * radius.value);
 const secondaryC = computed(
-  () => Math.PI * 2 * (radius.value - strokeWidth.value - 7)
+  () => Math.PI * 2 * (radius.value - strokeWidth.value - 8)
 );
 
 const targetStroke = computed(() => {
   return [
     primaryC.value / 2.1 - (primaryC.value / 2) * (value.value / target.value),
     primaryC.value - (primaryC.value / 2) * (value.value / target.value),
-  ];
+  ].toString();
 });
 
 const targetOffset = computed(() => {
@@ -86,14 +109,22 @@ const scoreStroke = computed(() => {
   return [
     (primaryC.value / 2) * (value.value / target.value),
     primaryC.value - (primaryC.value / 2) * (value.value / target.value),
-  ];
+  ].toString();
 });
 
 const scoreStroke2 = computed(() => {
   return [
     (secondaryC.value / 2) * (value.value / target.value),
     secondaryC.value - (secondaryC.value / 2) * (value.value / target.value),
-  ];
+  ].toString();
+});
+
+const indicatorStroke = computed(() => {
+  return [2, primaryC.value - 2].toString();
+});
+
+const arrowStyle = computed(() => {
+  return `transform: rotate(${-90 + (180 * value.value) / target.value}deg)`;
 });
 </script>
 
