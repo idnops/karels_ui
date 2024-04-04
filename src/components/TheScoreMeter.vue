@@ -75,17 +75,14 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from "vue";
+import { computed, ref } from "vue";
 
-onMounted(() => {
-  setTimeout(() => {
-    value.value = 65;
-  }, 500);
-});
+const props = defineProps<{
+  target: number;
+  actual: number;
+}>();
 
 const radius = ref(180);
-const target = ref(100);
-const value = ref(0);
 
 const strokeWidth = ref(40);
 
@@ -96,26 +93,26 @@ const secondaryC = computed(
 
 const targetStroke = computed(() => {
   return [
-    primaryC.value / 2.1 - (primaryC.value / 2) * (value.value / target.value),
-    primaryC.value - (primaryC.value / 2) * (value.value / target.value),
+    primaryC.value / 2.1 - (primaryC.value / 2) * (props.actual / props.target),
+    primaryC.value - (primaryC.value / 2) * (props.actual / props.target),
   ].toString();
 });
 
 const targetOffset = computed(() => {
-  return (primaryC.value / 2) * (value.value / target.value) * -1;
+  return (primaryC.value / 2) * (props.actual / props.target) * -1;
 });
 
 const scoreStroke = computed(() => {
   return [
-    (primaryC.value / 2) * (value.value / target.value),
-    primaryC.value - (primaryC.value / 2) * (value.value / target.value),
+    (primaryC.value / 2) * (props.actual / props.target),
+    primaryC.value - (primaryC.value / 2) * (props.actual / props.target),
   ].toString();
 });
 
 const scoreStroke2 = computed(() => {
   return [
-    (secondaryC.value / 2) * (value.value / target.value),
-    secondaryC.value - (secondaryC.value / 2) * (value.value / target.value),
+    (secondaryC.value / 2) * (props.actual / props.target),
+    secondaryC.value - (secondaryC.value / 2) * (props.actual / props.target),
   ].toString();
 });
 
@@ -124,7 +121,7 @@ const indicatorStroke = computed(() => {
 });
 
 const arrowStyle = computed(() => {
-  const degree = -90 + (180 * value.value) / target.value;
+  const degree = -90 + (180 * props.actual) / props.target;
   const limit = degree > 90 ? 90 : degree < -90 ? -90 : degree;
   return `transform: rotate(${limit}deg)`;
 });
