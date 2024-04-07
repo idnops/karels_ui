@@ -1,6 +1,10 @@
 <template>
   <div class="flex items-center justify-center pt-6 relative">
-    <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+    <svg
+      viewBox="0 0 400 200"
+      xmlns="http://www.w3.org/2000/svg"
+      class="w-full h-full"
+    >
       <defs>
         <linearGradient x1="0%" y1="100%" id="primaryStrokeGradient">
           <stop offset="0%" stop-color="#45c8cb" />
